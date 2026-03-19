@@ -1,0 +1,407 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  background: #f5ebdd;
+  color: #2f1e1e;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+  min-height: 100vh;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+.navbar-wrapper {
+  width: 100%;
+  border-bottom: 1px solid #e6d6c3;
+  background: #fcf7f1;
+}
+
+.navbar {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 18px 24px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.navbar-top-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  width: 100%;
+}
+
+.brand-logo {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #7a1f3d;
+}
+
+.menu-toggle {
+  display: none;
+  border: 1px solid #d8c6b2;
+  background: white;
+  color: #5d4545;
+  padding: 10px 14px;
+  border-radius: 14px;
+  cursor: pointer;
+}
+
+.search-input {
+  flex: 1;
+  min-width: 220px;
+  max-width: 320px;
+  padding: 12px 18px;
+  border: 1px solid #d8c6b2;
+  border-radius: 999px;
+  outline: none;
+  background: white;
+  color: #2f1e1e;
+}
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.pill {
+  border: 1px solid #d8c6b2;
+  background: white;
+  color: #5d4545;
+  padding: 10px 16px;
+  border-radius: 999px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pill-dark {
+  background: #5c1d36;
+  color: white;
+  border-color: #5c1d36;
+}
+
+.primary-btn,
+.secondary-btn {
+  padding: 14px 22px;
+  border-radius: 999px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.primary-btn {
+  background: #5c1d36;
+  color: white;
+}
+
+.secondary-btn {
+  border: 1px solid #d8c6b2;
+  background: white;
+  color: #5d4545;
+}
+
+.hero-section {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 72px 24px 40px;
+  text-align: center;
+}
+
+.hero-tag {
+  letter-spacing: 4px;
+  font-size: 0.8rem;
+  color: #8c6a5d;
+  margin-bottom: 16px;
+}
+
+.hero-title {
+  font-size: 4rem;
+  line-height: 1;
+  color: #7a1f3d;
+  margin-bottom: 18px;
+  font-weight: 800;
+}
+
+.hero-subtitle {
+  max-width: 760px;
+  margin: 0 auto 28px;
+  color: #6d5650;
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+.hero-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.page-header {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 36px 24px 20px;
+  text-align: center;
+}
+
+.category-pills {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.products-section {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 8px 24px 60px;
+}
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 24px;
+}
+
+.product-card {
+  background: #fcf7f1;
+  border: 1px solid #eadbc8;
+  border-radius: 24px;
+  overflow: hidden;
+  display: block;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.product-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 24px rgba(92, 29, 54, 0.08);
+}
+
+.product-image {
+  width: 100%;
+  height: 280px;
+  object-fit: contain;
+  background: #f8efe3;
+  padding: 10px;
+}
+
+.product-info {
+  padding: 16px;
+}
+
+.simple-page,
+.detail-page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 28px 24px 70px;
+}
+
+.page-actions {
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 20px;
+}
+
+.detail-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 32px;
+  align-items: start;
+}
+
+.detail-image-card,
+.detail-content,
+.sell-card,
+.auth-card,
+.empty-state-card,
+.summary-card {
+  background: #fcf7f1;
+  border: 1px solid #eadbc8;
+  border-radius: 24px;
+  padding: 24px;
+}
+
+.detail-image {
+  width: 100%;
+  height: 420px;
+  object-fit: contain;
+  background: #f8efe3;
+  border-radius: 18px;
+}
+
+.detail-title {
+  font-size: 2.2rem;
+  margin-bottom: 10px;
+  color: #2f1e1e;
+}
+
+.detail-price {
+  font-size: 1.8rem;
+  color: #5c1d36;
+  font-weight: 700;
+  margin-bottom: 18px;
+}
+
+.detail-description {
+  margin-top: 16px;
+  margin-bottom: 22px;
+  line-height: 1.6;
+}
+
+.detail-buttons {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 560px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.auth-subtitle {
+  margin-bottom: 24px;
+  color: #6d5650;
+}
+
+.auth-form,
+.sell-form {
+  display: grid;
+  gap: 18px;
+  text-align: left;
+}
+
+.form-label {
+  display: grid;
+  gap: 8px;
+  font-weight: 600;
+}
+
+.form-input {
+  width: 100%;
+  padding: 14px 16px;
+  border: 1px solid #d8c6b2;
+  border-radius: 16px;
+  background: white;
+  outline: none;
+}
+
+.textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.auth-btn {
+  width: 100%;
+}
+
+.auth-switch {
+  margin-top: 22px;
+  color: #6d5650;
+}
+
+.auth-link {
+  color: #5c1d36;
+  font-weight: 700;
+}
+
+.empty-state-card {
+  max-width: 560px;
+  margin: 40px auto 0;
+  text-align: center;
+}
+
+.summary-card {
+  max-width: 100%;
+}
+
+@media (max-width: 900px) {
+  .detail-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    align-items: stretch;
+  }
+
+  .menu-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .search-input {
+    max-width: 100%;
+    width: 100%;
+  }
+
+  .nav-actions {
+    display: none;
+    width: 100%;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .nav-actions.nav-open {
+    display: flex;
+  }
+
+  .nav-actions .pill,
+  .nav-actions .pill-dark {
+    width: 100%;
+    text-align: center;
+  }
+
+  .hero-title {
+    font-size: 2.8rem;
+  }
+
+  .product-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .page-header,
+  .hero-section,
+  .products-section,
+  .simple-page,
+  .detail-page {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+}
