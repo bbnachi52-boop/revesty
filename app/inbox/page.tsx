@@ -1,14 +1,15 @@
 "use client";
 
-import { useMemo, useState } from "react";
-import Link from "next/link";
+import { useState } from "react";
 import Navbar from "@/app/components/Navbar";
-import { useMessages } from "@/app/store/messageStore";
 import { useLanguage } from "@/app/lib/useLanguage";
+import { useMessages } from "@/app/store/messageStore";
 
 export default function InboxPage() {
-  const messagesStore = useMessages();
-  const { language } = useLanguage();
+  const languageData: any = useLanguage();
+  const messagesStore: any = useMessages();
+
+  const language = languageData?.language || "en";
 
   const conversations = Array.isArray(messagesStore?.conversations)
     ? messagesStore.conversations
@@ -17,20 +18,20 @@ export default function InboxPage() {
   const sendReply =
     typeof messagesStore?.sendReply === "function"
       ? messagesStore.sendReply
-      : null;
+      : () => {};
 
-  const [selectedId, setSelectedId] = useState<number | null>(null);
-  const [text, setText] = useState("");
+  const [replyText, setReplyText] = useState<Record<number, string>>({});
 
-  const selectedConversation = useMemo(() => {
-    if (selectedId === null) return conversations[0] || null;
-    return conversations.find((conv: any) => conv.id === selectedId) || null;
-  }, [conversations, selectedId]);
+  const handleReply = (conversationId: number) => {
+    const text = replyText[conversationId]?.trim();
+    if (!text) return;
 
-  const handleSend = () => {
-    if (!text.trim() || !selectedConversation || !sendReply) return;
-    sendReply(selectedConversation.id, text);
-    setText("");
+    sendReply(conversationId, text);
+
+    setReplyText((prev) => ({
+      ...prev,
+      [conversationId]: ""
+    }));
   };
 
   return (
@@ -39,250 +40,153 @@ export default function InboxPage() {
 
       <section
         style={{
-          maxWidth: "1200px",
+          maxWidth: "900px",
           margin: "0 auto",
-          padding: "36px 24px 60px"
+          padding: "40px 20px"
         }}
       >
-        <div
+        <h1
           style={{
             textAlign: "center",
-            marginBottom: "28px"
+            marginBottom: "10px",
+            fontSize: "2.2rem",
+            color: "#5c1d36"
           }}
         >
-          <h1
-            style={{
-              color: "#5c1d36",
-              fontSize: "2.4rem",
-              marginBottom: "10px"
-            }}
-          >
-            {language === "es" ? "Inbox" : "Inbox"}
-          </h1>
+          Inbox
+        </h1>
 
-          <p style={{ color: "#6d5650" }}>
-            {language === "es"
-              ? "Tus conversaciones con vendedores."
-              : "Your conversations with sellers."}
-          </p>
-        </div>
-
-        <div
+        <p
           style={{
-            display: "grid",
-            gridTemplateColumns: "320px 1fr",
-            gap: "20px",
-            alignItems: "stretch"
+            textAlign: "center",
+            color: "#7a6a6a",
+            marginBottom: "30px"
           }}
         >
-          <div
-            style={{
-              background: "#fcf7f1",
-              border: "1px solid #eadbc8",
-              borderRadius: "24px",
-              padding: "16px",
-              minHeight: "70vh",
-              overflowY: "auto"
-            }}
-          >
-            <h3 style={{ marginBottom: "16px", color: "#5c1d36" }}>
-              {language === "es" ? "Mensajes" : "Messages"}
-            </h3>
+          {language === "es"
+            ? "Tus conversaciones con vendedores."
+            : "Your conversations with sellers."}
+        </p>
 
-            {conversations.length === 0 ? (
-              <p style={{ color: "#6d5650" }}>
-                {language === "es"
-                  ? "No tienes mensajes todavía."
-                  : "No messages yet."}
-              </p>
-            ) : (
-              conversations.map((conv: any) => {
-                const lastMessage =
-                  Array.isArray(conv.messages) && conv.messages.length > 0
-                    ? conv.messages[conv.messages.length - 1]
-                    : null;
-
-                const isSelected =
-                  (selectedConversation && selectedConversation.id === conv.id) ||
-                  (!selectedConversation && conversations[0]?.id === conv.id);
-
-                return (
-                  <button
-                    key={conv.id}
-                    type="button"
-                    onClick={() => setSelectedId(conv.id)}
-                    style={{
-                      width: "100%",
-                      textAlign: "left",
-                      padding: "14px",
-                      borderRadius: "16px",
-                      cursor: "pointer",
-                      background: isSelected ? "#f8efe3" : "transparent",
-                      border: isSelected
-                        ? "1px solid #e2cdb8"
-                        : "1px solid transparent",
-                      marginBottom: "10px"
-                    }}
-                  >
-                    <strong
-                      style={{
-                        display: "block",
-                        marginBottom: "6px",
-                        color: "#2f1e1e"
-                      }}
-                    >
-                      {conv.productTitle ||
-                        (language === "es" ? "Producto" : "Product")}
-                    </strong>
-
-                    <p
-                      style={{
-                        fontSize: "0.9rem",
-                        color: "#6d5650",
-                        overflow: "hidden",
-                        textOverflow: "ellipsis",
-                        whiteSpace: "nowrap"
-                      }}
-                    >
-                      {lastMessage?.text ||
-                        (language === "es"
-                          ? "Sin mensajes"
-                          : "No messages")}
-                    </p>
-                  </button>
-                );
-              })
-            )}
+        {conversations.length === 0 ? (
+          <div className="empty-state-card">
+            {language === "es"
+              ? "No tienes mensajes todavía."
+              : "You have no messages yet."}
           </div>
+        ) : (
+          conversations.map((conversation: any, index: number) => (
+            <div
+              key={conversation.id || index}
+              style={{
+                background: "#fff",
+                borderRadius: "20px",
+                padding: "20px",
+                marginBottom: "25px",
+                boxShadow: "0 2px 10px rgba(0,0,0,0.05)"
+              }}
+            >
+              <h3 style={{ marginBottom: "10px", color: "#5c1d36" }}>
+                {conversation.productTitle || "Product"}
+              </h3>
 
-          <div
-            style={{
-              background: "#fcf7f1",
-              border: "1px solid #eadbc8",
-              borderRadius: "24px",
-              display: "flex",
-              flexDirection: "column",
-              minHeight: "70vh",
-              overflow: "hidden"
-            }}
-          >
-            {selectedConversation ? (
-              <>
-                <div
-                  style={{
-                    padding: "18px 20px",
-                    borderBottom: "1px solid #eadbc8",
-                    background: "#fcf7f1"
-                  }}
-                >
-                  <strong style={{ color: "#5c1d36", fontSize: "1.05rem" }}>
-                    {selectedConversation.productTitle ||
-                      (language === "es" ? "Conversación" : "Conversation")}
-                  </strong>
+              <p style={{ color: "#999", marginBottom: "15px" }}>
+                {language === "es"
+                  ? "Conversación activa"
+                  : "Active conversation"}
+              </p>
 
-                  {selectedConversation.productId && (
-                    <div style={{ marginTop: "8px" }}>
-                      <Link
-                        href={`/product/${selectedConversation.productId}`}
-                        className="pill"
-                      >
-                        {language === "es" ? "Ver producto" : "View product"}
-                      </Link>
-                    </div>
-                  )}
-                </div>
-
-                <div
-                  style={{
-                    flex: 1,
-                    padding: "18px",
-                    overflowY: "auto",
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: "12px",
-                    background: "#fffaf5"
-                  }}
-                >
-                  {Array.isArray(selectedConversation.messages) &&
-                  selectedConversation.messages.length > 0 ? (
-                    selectedConversation.messages.map((msg: any, index: number) => {
-                      const isUser =
-                        msg.sender === "user" ||
-                        msg.role === "user" ||
-                        msg.from === "user" ||
-                        msg.author === "user";
-
-                      return (
-                        <div
-                          key={msg.id || index}
-                          style={{
-                            alignSelf: isUser ? "flex-end" : "flex-start",
-                            background: isUser ? "#5c1d36" : "#f8efe3",
-                            color: isUser ? "white" : "#2f1e1e",
-                            padding: "12px 16px",
-                            borderRadius: "18px",
-                            maxWidth: "72%",
-                            lineHeight: 1.5
-                          }}
-                        >
-                          {msg.text}
-                        </div>
-                      );
-                    })
-                  ) : (
-                    <p style={{ color: "#6d5650" }}>
-                      {language === "es"
-                        ? "Todavía no hay mensajes en esta conversación."
-                        : "There are no messages in this conversation yet."}
-                    </p>
-                  )}
-                </div>
-
-                <div
-                  style={{
-                    padding: "14px",
-                    borderTop: "1px solid #eadbc8",
-                    display: "flex",
-                    gap: "10px",
-                    background: "#fcf7f1"
-                  }}
-                >
-                  <input
-                    value={text}
-                    onChange={(e) => setText(e.target.value)}
-                    placeholder={
-                      language === "es"
-                        ? "Escribe un mensaje..."
-                        : "Write a message..."
-                    }
-                    className="form-input"
-                  />
-
-                  <button
-                    type="button"
-                    className="primary-btn"
-                    onClick={handleSend}
-                  >
-                    {language === "es" ? "Enviar" : "Send"}
-                  </button>
-                </div>
-              </>
-            ) : (
+              {/* MENSAJES */}
               <div
                 style={{
-                  margin: "auto",
-                  textAlign: "center",
-                  color: "#6d5650",
-                  padding: "24px"
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "10px",
+                  marginBottom: "15px"
                 }}
               >
-                {language === "es"
-                  ? "Selecciona una conversación."
-                  : "Select a conversation."}
+                {(conversation.messages || []).map(
+                  (msg: any, i: number) => (
+                    <div
+                      key={msg.id || i}
+                      style={{
+                        alignSelf:
+                          msg.sender === "user" ? "flex-end" : "flex-start",
+                        background:
+                          msg.sender === "user"
+                            ? "#5c1d36"
+                            : "#f1e6dc",
+                        color:
+                          msg.sender === "user"
+                            ? "#fff"
+                            : "#3a2a2a",
+                        padding: "10px 14px",
+                        borderRadius: "16px",
+                        maxWidth: "70%"
+                      }}
+                    >
+                      <div style={{ fontSize: "12px", opacity: 0.8 }}>
+                        {msg.sender === "user"
+                          ? language === "es"
+                            ? "Tú"
+                            : "You"
+                          : language === "es"
+                          ? "Vendedor"
+                          : "Seller"}
+                      </div>
+
+                      <div>{msg.text}</div>
+                    </div>
+                  )
+                )}
               </div>
-            )}
-          </div>
-        </div>
+
+              {/* INPUT */}
+              <div
+                style={{
+                  display: "flex",
+                  gap: "10px"
+                }}
+              >
+                <input
+                  type="text"
+                  value={replyText[conversation.id] || ""}
+                  onChange={(e) =>
+                    setReplyText((prev) => ({
+                      ...prev,
+                      [conversation.id]: e.target.value
+                    }))
+                  }
+                  placeholder={
+                    language === "es"
+                      ? "Escribe tu mensaje..."
+                      : "Reply here..."
+                  }
+                  style={{
+                    flex: 1,
+                    padding: "10px",
+                    borderRadius: "10px",
+                    border: "1px solid #ddd"
+                  }}
+                />
+
+                <button
+                  onClick={() => handleReply(conversation.id)}
+                  style={{
+                    background: "#5c1d36",
+                    color: "white",
+                    border: "none",
+                    padding: "10px 16px",
+                    borderRadius: "10px",
+                    cursor: "pointer"
+                  }}
+                >
+                  {language === "es" ? "Enviar" : "Send"}
+                </button>
+              </div>
+            </div>
+          ))
+        )}
       </section>
     </main>
   );
