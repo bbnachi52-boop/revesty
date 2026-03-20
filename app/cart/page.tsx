@@ -9,7 +9,7 @@ export default function CartPage() {
   const { cart, removeFromCart, addToFavorites } = useShop();
   const { language } = useLanguage();
 
-  const total = cart.reduce((acc, item) => acc + Number(item.price || 0), 0);
+  const total = cart.reduce((acc: any, item: any) => acc + Number(item.price || 0), 0);
 
   const handleSaveForLater = (item: any, index: number) => {
     addToFavorites(item);
