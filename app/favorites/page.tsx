@@ -6,7 +6,7 @@ import { useShop } from "@/app/store/shopStore";
 import { useLanguage } from "@/app/lib/useLanguage";
 
 export default function FavoritesPage() {
-  const { favorites, addToCart, removeFromFavorites } = useShop();
+  const { favorites, removeFromFavorites, addToCart } = useShop();
   const { language } = useLanguage();
 
   return (
@@ -38,7 +38,7 @@ export default function FavoritesPage() {
 
           <p style={{ color: "#6d5650" }}>
             {language === "es"
-              ? "Guarda lo que te gusta y vuelve cuando quieras."
+              ? "Guarda lo que te encanta y vuelve cuando quieras."
               : "Save what you love and come back anytime."}
           </p>
         </div>
@@ -47,8 +47,8 @@ export default function FavoritesPage() {
           <div className="empty-state-card">
             <p style={{ marginBottom: "16px" }}>
               {language === "es"
-                ? "Todavía no tienes artículos favoritos."
-                : "You don't have favorite items yet."}
+                ? "Todavía no tienes artículos guardados."
+                : "You don't have saved items yet."}
             </p>
 
             <Link href="/browse" className="primary-btn">
@@ -62,7 +62,7 @@ export default function FavoritesPage() {
               gap: "22px"
             }}
           >
-            {favorites.map((item, index) => (
+            {favorites.map((item: any, index: number) => (
               <div
                 key={`${item.id}-${index}`}
                 style={{
@@ -153,15 +153,6 @@ export default function FavoritesPage() {
                     >
                       {language === "es" ? "Mover al carrito" : "Move to cart"}
                     </button>
-
-                    <Link
-                      href="/checkout"
-                      className="primary-btn"
-                      onClick={() => addToCart(item)}
-                      style={{ padding: "10px 16px" }}
-                    >
-                      {language === "es" ? "Comprar ahora" : "Buy now"}
-                    </Link>
 
                     <button
                       type="button"
