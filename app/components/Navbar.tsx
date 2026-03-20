@@ -61,7 +61,7 @@ export default function Navbar({ search = "", setSearch }: NavbarProps) {
           <input
             type="text"
             className="search-input"
-            placeholder={t.searchPlaceholder}
+            placeholder={(t as any).searchPlaceholder}
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
