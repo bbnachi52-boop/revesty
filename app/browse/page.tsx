@@ -16,7 +16,7 @@ export default function HomePage() {
 
     if (!q) return products;
 
-    return products.filter((item) =>
+    return products.filter((item: any) =>
       `${item.title} ${item.brand || ""} ${item.description || ""} ${item.category || ""}`
         .toLowerCase()
         .includes(q)
