@@ -39,7 +39,9 @@ export default function Navbar({ search = "", setSearch }: NavbarProps) {
     window.location.href = "/";
   };
 
-  const inboxCount = Array.isArray(conversations) ? conversations.length : 0;
+  const inboxCount = Array.isArray(conversations)
+  ? (conversations as any[]).length
+  : 0;
 
   return (
     <header className="navbar-wrapper">
