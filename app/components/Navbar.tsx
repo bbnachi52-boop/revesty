@@ -13,9 +13,19 @@ type NavbarProps = {
 };
 
 export default function Navbar({ search = "", setSearch }: NavbarProps) {
-  const { t, language, changeLanguage } = useLanguage();
-  const { cart, favorites } = useShop();
-  const { conversations } = useMessages();
+  const languageData: any = useLanguage();
+  const shopData: any = useShop();
+  const messageData: any = useMessages();
+
+  const t = languageData?.t || {};
+  const language = languageData?.language || "en";
+  const changeLanguage = languageData?.changeLanguage;
+
+  const cart = Array.isArray(shopData?.cart) ? shopData.cart : [];
+  const favorites = Array.isArray(shopData?.favorites) ? shopData.favorites : [];
+  const conversations = Array.isArray(messageData?.conversations)
+    ? messageData.conversations
+    : [];
 
   const [open, setOpen] = useState(false);
   const [loggedUser, setLoggedUser] = useState<any>(null);
@@ -39,9 +49,7 @@ export default function Navbar({ search = "", setSearch }: NavbarProps) {
     window.location.href = "/";
   };
 
-  const inboxCount = Array.isArray(conversations)
-  ? (conversations as any[]).length
-  : 0;
+  const inboxCount = conversations.length;
 
   return (
     <header className="navbar-wrapper">
@@ -61,7 +69,7 @@ export default function Navbar({ search = "", setSearch }: NavbarProps) {
           <input
             type="text"
             className="search-input"
-            placeholder={(t as any).searchPlaceholder}
+            placeholder={t.searchPlaceholder || "Search items..."}
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
@@ -72,7 +80,7 @@ export default function Navbar({ search = "", setSearch }: NavbarProps) {
             <button
               type="button"
               className={language === "en" ? "pill pill-dark" : "pill"}
-              onClick={() => changeLanguage("en")}
+              onClick={() => (changeLanguage as any)("en")}
             >
               EN
             </button>
@@ -80,18 +88,18 @@ export default function Navbar({ search = "", setSearch }: NavbarProps) {
             <button
               type="button"
               className={language === "es" ? "pill pill-dark" : "pill"}
-              onClick={() => changeLanguage("es")}
+              onClick={() => (changeLanguage as any)("es")}
             >
               ES
             </button>
           </div>
 
           <Link href="/" className="pill">
-            🏠 {t.home}
+            🏠 {t.home || "Home"}
           </Link>
 
           <Link href="/browse" className="pill">
-            {t.browse}
+            {t.browse || "Browse"}
           </Link>
 
           <Link href="/favorites" className="pill">
@@ -103,20 +111,20 @@ export default function Navbar({ search = "", setSearch }: NavbarProps) {
           </Link>
 
           <Link href="/my-listings" className="pill">
-            {t.myListings}
+            {t.myListings || "My Listings"}
           </Link>
 
           <Link href="/account" className="pill">
-            {loggedUser?.name || t.account}
+            {loggedUser?.name || t.account || "Account"}
           </Link>
 
           <Link href="/inbox" className="pill">
-            {t.inbox}
+            {t.inbox || "Inbox"}
             {inboxCount > 0 ? ` (${inboxCount})` : ""}
           </Link>
 
           <Link href="/sell" className="pill pill-dark">
-            {t.sell}
+            {t.sell || "Sell"}
           </Link>
 
           {loggedUser?.isLoggedIn ? (
@@ -126,11 +134,11 @@ export default function Navbar({ search = "", setSearch }: NavbarProps) {
           ) : (
             <>
               <Link href="/login" className="pill">
-                {t.login}
+                {t.login || "Login"}
               </Link>
 
               <Link href="/signup" className="pill pill-dark">
-                {t.signup}
+                {t.signup || "Sign Up"}
               </Link>
             </>
           )}
