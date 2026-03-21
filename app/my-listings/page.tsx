@@ -13,7 +13,7 @@ export default function MyListingsPage() {
   const [editingId, setEditingId] = useState(null);
   const [form, setForm] = useState({ title: "", price: "", description: "" });
 
-  const startEdit = (item) => {
+  const startEdit = (item: any) => {
     setEditingId(item.id);
     setForm({
       title: item.title,
@@ -22,7 +22,7 @@ export default function MyListingsPage() {
     });
   };
 
-  const saveEdit = (id) => {
+  const saveEdit = (id: any) => {
     updateListing({
       id,
       ...form
@@ -36,11 +36,11 @@ export default function MyListingsPage() {
 
       <section className="simple-page">
         <div className="page-actions">
-          <Link href="/" className="pill">{t.back}</Link>
+          <Link href="/" className="pill">{(t as any) .back}</Link>
         </div>
 
         <div className="page-header">
-          <h1>{t.myListings}</h1>
+          <h1>{(t as any) .myListings}</h1>
         </div>
 
         {myListings.length === 0 ? (
@@ -49,7 +49,7 @@ export default function MyListingsPage() {
           </div>
         ) : (
           <div style={{ display: "grid", gap: "20px" }}>
-            {myListings.map((item) => (
+            {myListings.map((item: any) => (
               <div
                 key={item.id}
                 style={{

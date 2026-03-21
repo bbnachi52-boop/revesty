@@ -13,7 +13,7 @@ export default function ProductPage() {
   const { id } = useParams();
   const { products, addToCart, addToFavorites } = useShop();
   const { language } = useLanguage();
-  const { sendMessage } = useMessages();
+  const { sendMessage } = useMessages() as any;
   const { addReview, getReviewsByProduct, getAverageRating } = useReviews();
 
   const [messageText, setMessageText] = useState("");

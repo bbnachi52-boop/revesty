@@ -6,7 +6,7 @@ import Navbar from "../components/Navbar";
 import { useLanguage } from "../lib/useLanguage";
 
 export default function PreferencesPage() {
-  const { language, changeLanguage, t } = useLanguage();
+  const { language, changeLanguage, t } = useLanguage() as any;
 
   const [notifications, setNotifications] = useState(true);
   const [marketingEmails, setMarketingEmails] = useState(false);
@@ -24,7 +24,7 @@ export default function PreferencesPage() {
     }
   }, []);
 
-  const handleSave = (e) => {
+  const handleSave = (e: any) => {
     e.preventDefault();
 
     const prefs = {
@@ -35,7 +35,7 @@ export default function PreferencesPage() {
     };
 
     localStorage.setItem("revesty-preferences", JSON.stringify(prefs));
-    setSavedMessage(t.saved);
+    setSavedMessage((t as any) .saved);
 
     setTimeout(() => {
       setSavedMessage("");
@@ -49,19 +49,19 @@ export default function PreferencesPage() {
       <section className="simple-page">
         <div className="page-actions">
           <Link href="/" className="pill">
-            {t.back}
+            {(t as any) .back}
           </Link>
         </div>
 
         <div className="page-header">
-          <h1>{t.preferencesTitle}</h1>
-          <p>{t.preferencesSubtitle}</p>
+          <h1>{(t as any) .preferencesTitle}</h1>
+          <p>{(t as any) .preferencesSubtitle}</p>
         </div>
 
         <div className="auth-card" style={{ maxWidth: "760px", textAlign: "left" }}>
           <form className="auth-form" onSubmit={handleSave}>
             <div>
-              <label className="form-label">{t.languageSetting}</label>
+              <label className="form-label">{(t as any) .languageSetting}</label>
 
               <div style={{ display: "flex", gap: "12px", flexWrap: "wrap", marginTop: "8px" }}>
                 <button
@@ -99,7 +99,7 @@ export default function PreferencesPage() {
                 <div>
                   <strong>{t.notifications}</strong>
                   <p style={{ marginTop: "6px", color: "#6d5650" }}>
-                    {t.notificationsDescription}
+                    {(t as any) .notificationsDescription}
                   </p>
                 </div>
               </label>
@@ -120,9 +120,9 @@ export default function PreferencesPage() {
                   onChange={(e) => setMarketingEmails(e.target.checked)}
                 />
                 <div>
-                  <strong>{t.marketingEmails}</strong>
+                  <strong>{(t as any) .marketingEmails}</strong>
                   <p style={{ marginTop: "6px", color: "#6d5650" }}>
-                    {t.marketingDescription}
+                    {(t as any) .marketingDescription}
                   </p>
                 </div>
               </label>
@@ -143,16 +143,16 @@ export default function PreferencesPage() {
                   onChange={(e) => setPrivateProfile(e.target.checked)}
                 />
                 <div>
-                  <strong>{t.privateProfile}</strong>
+                  <strong>{(t as any) .privateProfile}</strong>
                   <p style={{ marginTop: "6px", color: "#6d5650" }}>
-                    {t.privateProfileDescription}
+                    {(t as any) .privateProfileDescription}
                   </p>
                 </div>
               </label>
             </div>
 
             <button type="submit" className="primary-btn auth-btn">
-              {t.save}
+              {(t as any) .save}
             </button>
 
             {savedMessage && (

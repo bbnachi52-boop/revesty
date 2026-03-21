@@ -16,7 +16,7 @@ export default function HomePage() {
 
     if (!q) return products;
 
-    return products.filter((item) =>
+    return products.filter((item: any) =>
       `${item.title} ${item.brand || ""} ${item.description || ""} ${item.category || ""}`
         .toLowerCase()
         .includes(q)
@@ -27,10 +27,10 @@ export default function HomePage() {
   const newArrivals = filteredProducts.slice(0, 8);
 
   const categoryCards = [
-    { label: t.clothes, emoji: "👗" },
-    { label: t.shoes, emoji: "👟" },
-    { label: t.bags, emoji: "👜" },
-    { label: t.accessories, emoji: "✨" }
+    { label: (t as any) .clothes, emoji: "👗" },
+    { label: (t as any) .shoes, emoji: "👟" },
+    { label: (t as any) .bags, emoji: "👜" },
+    { label: (t as any) .accessories, emoji: "✨" }
   ];
 
   return (
@@ -73,7 +73,7 @@ export default function HomePage() {
                 marginBottom: "14px"
               }}
             >
-              {t.heroTag}
+              {(t as any) .heroTag}
             </p>
 
             <h1
@@ -85,7 +85,7 @@ export default function HomePage() {
                 fontWeight: 800
               }}
             >
-              {t.heroTitle}
+              {(t as any) .heroTitle}
             </h1>
 
             <p
@@ -97,7 +97,7 @@ export default function HomePage() {
                 marginBottom: "26px"
               }}
             >
-              {t.heroSubtitle}
+              {(t as any) .heroSubtitle}
             </p>
 
             <div
@@ -108,11 +108,11 @@ export default function HomePage() {
               }}
             >
               <Link href="/sell" className="primary-btn">
-                {t.sellItem}
+                {(t as any) .sellItem}
               </Link>
 
               <Link href="/browse" className="secondary-btn">
-                {t.browseItems}
+                {(t as any) .browseItems}
               </Link>
             </div>
           </div>
@@ -143,8 +143,8 @@ export default function HomePage() {
                 }}
               >
                 {language === "es"
-                  ? "Descubre moda curada, piezas únicas y artículos pre-loved con estilo."
-                  : "Discover curated fashion, unique pieces, and stylish pre-loved items."}
+                  ? "Descubre moda unica, piezas exclusivas y artículos pre-loved con estilo."
+                  : "Discover unique fashion, one-of-a-kind pieces, and stylish pre-loved items."}
               </p>
             </div>
 
@@ -286,7 +286,7 @@ export default function HomePage() {
           </div>
         ) : (
           <div className="product-grid">
-            {featuredProducts.map((item) => (
+            {featuredProducts.map((item: any) => (
               <Link
                 key={item.id}
                 href={`/product/${item.id}`}
@@ -333,7 +333,7 @@ export default function HomePage() {
           </div>
         ) : (
           <div className="product-grid">
-            {newArrivals.map((item) => (
+            {newArrivals.map((item: any) => (
               <Link
                 key={item.id}
                 href={`/product/${item.id}`}

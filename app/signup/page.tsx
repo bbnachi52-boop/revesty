@@ -8,7 +8,7 @@ import { useLanguage } from "../lib/useLanguage";
 
 export default function SignupPage() {
   const router = useRouter();
-  const { t, language } = useLanguage();
+  const { t, language } = useLanguage() as any;
   const [showPassword, setShowPassword] = useState(false);
   const [form, setForm] = useState({
     name: "",
@@ -53,15 +53,15 @@ export default function SignupPage() {
       <section className="simple-page">
         <div className="auth-card">
           <h1 className="auth-title" style={{ marginBottom: "10px", color: "#5c1d36" }}>
-            {t.signupTitle}
+            {(t as any) .signupTitle}
           </h1>
-          <p className="auth-subtitle">{t.signupSubtitle}</p>
+          <p className="auth-subtitle">{(t as any) .signupSubtitle}</p>
 
           <form onSubmit={handleSubmit} className="auth-form">
             <input
               name="name"
               type="text"
-              placeholder={t.name}
+              placeholder={(t as any) .name}
               onChange={handleChange}
               value={form.name}
               className="form-input"
@@ -106,11 +106,11 @@ export default function SignupPage() {
               </button>
             </div>
 
-            <button type="submit" className="primary-btn">{t.signupButton}</button>
+            <button type="submit" className="primary-btn">{(t as any) .signupButton}</button>
           </form>
 
           <p className="auth-switch">
-            {t.haveAccount} <Link href="/login" className="auth-link">{t.signIn}</Link>
+            {(t as any) .haveAccount} <Link href="/login" className="auth-link">{(t as any) .signIn}</Link>
           </p>
         </div>
       </section>

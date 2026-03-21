@@ -22,11 +22,11 @@ export default function SellPage() {
     image: ""
   });
 
-  const handleChange = (e) => {
+  const handleChange = (e: any) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleImageUpload = (e) => {
+  const handleImageUpload = (e: any) => {
     const file = e.target.files[0];
 
     if (!file) return;
@@ -36,14 +36,14 @@ export default function SellPage() {
     reader.onloadend = () => {
       setForm((prev) => ({
         ...prev,
-        image: reader.result
+        image: typeof reader.result === "string" ? reader.result : ""
       }));
     };
 
     reader.readAsDataURL(file);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: any) => {
     e.preventDefault();
 
     if (!form.title || !form.price || !form.image) {
@@ -66,7 +66,7 @@ export default function SellPage() {
       <section className="simple-page">
         <div className="page-actions">
           <button onClick={() => router.back()} className="pill">
-            {t.back}
+            {(t as any) .back}
           </button>
         </div>
 

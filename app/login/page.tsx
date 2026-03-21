@@ -10,13 +10,19 @@ export default function LoginPage() {
   const router = useRouter();
   const { t, language } = useLanguage();
   const [showPassword, setShowPassword] = useState(false);
-  const [form, setForm] = useState({
+  const [form, setForm] = useState<{
+    email: string;
+    password: string;
+  }>({
     email: "",
-    password: ""
+    password: "",
   });
 
-  const handleChange = (e: any) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setForm({ 
+      ...form,
+     [e.target.name]: e.target.value 
+    });
   };
 
   const handleSubmit = (e: any) => {
@@ -51,15 +57,15 @@ export default function LoginPage() {
       <section className="simple-page">
         <div className="auth-card">
           <h1 className="auth-title" style={{ marginBottom: "10px", color: "#5c1d36" }}>
-            {t.loginTitle}
+            {(t as any).loginTitle}
           </h1>
-          <p className="auth-subtitle">{t.loginSubtitle}</p>
+          <p className="auth-subtitle">{(t as any).loginSubtitle}</p>
 
           <form onSubmit={handleSubmit} className="auth-form">
             <input
               name="email"
               type="email"
-              placeholder={t.email}
+              placeholder={(t as any) .email}
               onChange={handleChange}
               value={form.email}
               className="form-input"
@@ -69,7 +75,7 @@ export default function LoginPage() {
               <input
                 name="password"
                 type={showPassword ? "text" : "password"}
-                placeholder={t.password}
+                placeholder={(t as any) .password}
                 onChange={handleChange}
                 value={form.password}
                 className="form-input"
@@ -95,11 +101,11 @@ export default function LoginPage() {
               </button>
             </div>
 
-            <button type="submit" className="primary-btn">{t.loginButton}</button>
+            <button type="submit" className="primary-btn">{(t as any) .loginButton}</button>
           </form>
 
           <p className="auth-switch">
-            {t.noAccount} <Link href="/signup" className="auth-link">{t.createAccount}</Link>
+            {(t as any) .noAccount} <Link href="/signup" className="auth-link">{(t as any) .createAccount}</Link>
           </p>
         </div>
       </section>
