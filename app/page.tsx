@@ -47,7 +47,7 @@ export default function HomePage() {
         <div
           style={{
             display: "grid",
-            gridTemplateColumns: "1.2fr 0.8fr",
+            gridTemplateColumns: "1fr",
             gap: "24px",
             alignItems: "stretch"
           }}
