@@ -280,29 +280,37 @@ export default function ProductPage() {
                 marginBottom: "22px"
               }}
             >
-              <Link
-                href="/checkout"
-                className="primary-btn"
-                onClick={() => addToCart(product)}
-              >
-                {language === "es" ? "Comprar ahora" : "Buy now"}
-              </Link>
+              {!product.isDemo ? (
+                <>
+                   <Link
+                      href="/checkout"
+                      className="primary-btn"
+                      onClick={() => addToCart(product)}
+                   >
+                    {language === "es" ? "Comprar ahora" : "Buy now"}
+                   </Link>
 
-              <button
-                type="button"
-                className="pill pill-dark"
-                onClick={() => addToCart(product)}
-              >
-                {language === "es" ? "Agregar al carrito" : "Add to cart"}
-              </button>
+                   <button
+                     type="button"
+                     className="pill pill-dark"
+                     onClick={() => addToCart(product)}
+                   >
+                     {language === "es" ? "Agregar al carrito" : "Add to cart"}
+                   </button>
 
-              <button
-                type="button"
-                className="pill"
-                onClick={() => addToFavorites(product)}
-              >
-                {language === "es" ? "Guardar" : "Save"}
-              </button>
+                   <button
+                     type="button"
+                     className="pill"
+                     onClick={() => addToFavorites(product)}
+                   >
+                     {language === "es" ? "Guardar" : "Save"}
+                   </button>
+                 </>
+               ) : (
+                <p style={{ color: "#6d5650", marginTop: "8px" }}>
+                  {language === "es" ? "Producto de muestra" : "Sample preview item"}
+                </p>
+              )}
             </div>
 
             <div
