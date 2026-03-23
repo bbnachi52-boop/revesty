@@ -347,7 +347,12 @@ export default function HomePage() {
                 <img
                   src={item.image}
                   alt={item.title}
-                  className="product-image"
+                  style={{
+                    width: "100%",
+                    height: "180px",
+                    objectfit: "cove",
+                    borderRadius: "12px"
+                  }}
                 />
 
                 <div className="product-info">
