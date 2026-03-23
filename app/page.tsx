@@ -285,7 +285,12 @@ export default function HomePage() {
             {language === "es" ? "No hay productos todavía." : "No products yet."}
           </div>
         ) : (
-          <div className="product-grid">
+          <div style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(2, 1fr)",
+            gap: "12px",
+            padding: "0 12px"
+          }}>
             {featuredProducts.map((item: any) => (
               <Link
                 key={item.id}
@@ -295,7 +300,12 @@ export default function HomePage() {
                 <img
                   src={item.image}
                   alt={item.title}
-                  className="product-image"
+                  style={{
+                    width: "100%",
+                    height: "180px",
+                    objectFit: "cover",
+                    borderRadius: "12px"
+                  }}
                 />
 
                 <div className="product-info">
