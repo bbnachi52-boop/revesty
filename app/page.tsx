@@ -350,7 +350,7 @@ export default function HomePage() {
                   style={{
                     width: "100%",
                     height: "180px",
-                    objectfit: "cove",
+                    objectFit: "cove",
                     borderRadius: "12px"
                   }}
                 />
