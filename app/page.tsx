@@ -285,12 +285,7 @@ export default function HomePage() {
             {language === "es" ? "No hay productos todavía." : "No products yet."}
           </div>
         ) : (
-          <div style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(2, 1fr)",
-            gap: "12px",
-            padding: "0 12px"
-          }}>
+          <div className="product-grid">
             {featuredProducts.map((item: any) => (
               <Link
                 key={item.id}
