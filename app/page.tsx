@@ -305,8 +305,14 @@ export default function HomePage() {
 
                 <div className="product-info">
                   <h3>{item.title}</h3>
-                  <p style={{ color: "#6d5650" }}>{item.brand}</p>
-                  <strong style={{ color: "#5c1d36" }}>${item.price}</strong>
+                  
+                  {!item.isDemo && item.price && (
+                    <strong>${item.price}</strong>
+                  )}
+
+                  {!item.isDemo && item.brand && (
+                     <p>{item.brand}</p>
+                  )}
                 </div>
               </Link>
             ))}
@@ -356,9 +362,15 @@ export default function HomePage() {
                 />
 
                 <div className="product-info">
-                  <h3>{item.title}</h3>
-                  <p style={{ color: "#6d5650" }}>{item.brand}</p>
-                  <strong style={{ color: "#5c1d36" }}>${item.price}</strong>
+                  <h3>{item.title}</h3> 
+
+                  {!item.isDemo && item.price && (
+                    <strong>${item.price}</strong>
+                  )}
+
+                  {!item.isDemo && item.brand && (
+                    <p>{item.brand}</p>
+                  )}
                 </div>
               </Link>
             ))}
